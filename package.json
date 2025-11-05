@@ -10,21 +10,45 @@
   "author": "Rajat Yadav",
   "license": "MIT",
   "dependencies": {
-    "electron": "^38.4.0",
     "electron-auto-launch": "^5.0.7",
     "lowdb": "^7.0.1"
   },
   "build": {
-    "appId": "com.copycat.clipboard",
-    "mac": {
-      "category": "public.app-category.productivity"
-    },
+    "appId": "com.copycat.app",
+    "productName": "CopyCat",
+    "files": [
+      "**/*"
+    ],
     "directories": {
       "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm"
+      ],
+      "icon": "assets/icon.png"
     }
   },
   "devDependencies": {
+    "electron": "^38.4.0",
+    "electron-builder": "^26.0.12",
+    "electron-installer-debian": "^3.2.0",
     "electron-installer-dmg": "^5.0.1",
+    "electron-installer-redhat": "^3.4.0",
+    "electron-packager": "^17.1.2",
     "electron-rebuild": "^3.2.9"
   }
 }
