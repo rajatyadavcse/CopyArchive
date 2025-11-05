@@ -60,15 +60,21 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./dist
-
+          merge-multiple: true
+          
       - name: List downloaded files
         run: ls -R ./dist
 
-      - name: Publish to GitHub Releases
+      - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ./dist/**/*
-          generate_release_notes: true
+          files: |
+            dist/*.dmg
+            dist/*.exe
+            dist/*.deb
+            dist/*.rpm
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
