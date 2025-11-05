@@ -55,7 +55,7 @@ function buildWindows() {
 // ---------------------------
 function buildLinux() {
   console.log(`🐧 Building ${appName} for Linux (${arch})...`);
-  const iconPath = path.join(__dirname, "assets", "icon.png");
+  const iconPath = path.join(__dirname, "assets", "icon_Linux.png");
   const linuxDir = path.join(buildDir, `${appName}-linux-${arch}`);
 
   run(

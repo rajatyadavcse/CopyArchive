@@ -42,7 +42,7 @@
         "deb",
         "rpm"
       ],
-      "icon": "assets/icon.png"
+      "icon": "assets/icon_Linux.png"
     }
   },
   "devDependencies": {
