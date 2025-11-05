@@ -1,57 +1,48 @@
 {
   "name": "copycat",
   "version": "1.0.0",
-  "description": "A simple Electron clipboard history app for macOS using Cmd+Shift+V",
+  "description": "CopyCat - A modern clipboard manager built with Electron.",
   "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "package": "node build.js"
-  },
   "author": {
     "name": "Rajat Yadav",
     "email": "rajat.yadav.cse@gmail.com"
   },
-  "license": "MIT",
-  "dependencies": {
-    "electron-auto-launch": "^5.0.7",
-    "lowdb": "^7.0.1"
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --publish never"
   },
   "build": {
     "appId": "com.copycat.app",
     "productName": "CopyCat",
-    "files": [
-      "**/*"
-    ],
     "directories": {
       "output": "dist"
     },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "assets/**/*",
+      "package.json"
+    ],
     "mac": {
       "category": "public.app-category.utilities",
-      "target": [
-        "dmg"
-      ]
+      "target": ["dmg"],
+      "icon": "assets/icon.icns"
     },
     "win": {
-      "target": [
-        "nsis"
-      ],
+      "target": ["nsis"],
       "icon": "assets/icon.ico"
     },
     "linux": {
-      "target": [
-        "deb",
-        "rpm"
-      ],
-      "icon": "assets/icon_Linux.png"
+      "target": ["AppImage", "deb", "rpm"],
+      "icon": "assets/icon_Linux.png",
+      "category": "Utility",
+      "maintainer": "Rajat Yadav <rajat.yadav.cse@gmail.com>"
     }
   },
   "devDependencies": {
-    "electron": "^38.4.0",
-    "electron-builder": "^26.0.12",
-    "electron-installer-debian": "^3.2.0",
-    "electron-installer-dmg": "^5.0.1",
-    "electron-installer-redhat": "^3.4.0",
-    "electron-packager": "^17.1.2",
-    "electron-rebuild": "^3.2.9"
-  }
+    "electron": "^28.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {}
 }

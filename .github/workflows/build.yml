@@ -1,20 +1,21 @@
-name: Build and Release CopyCat
+name: Build and Release CopyCat Electron App
 
 on:
   push:
     tags:
-      - "v*"  # runs only when you push a version tag (like v1.0.0)
+      - "v*.*.*" # Example: v1.0.0
+  workflow_dispatch: # Allow manual runs too
 
 jobs:
   build:
-    name: Build ${{ matrix.os }}
+    name: Build for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -23,31 +24,46 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Package Electron app
         run: |
-          npx electron-builder --${{ matrix.os == 'windows-latest' && 'win' || (matrix.os == 'ubuntu-latest' && 'linux' || 'mac') }} --publish never
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            npx electron-builder --win --publish never
+          elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            npx electron-builder --linux --publish never
+          else
+            npx electron-builder --mac --publish never
+          fi
 
-      - name: Upload Artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: CopyCat-${{ matrix.os }}
-          path: dist/
+          name: ${{ matrix.os }}-build
+          path: dist/**
 
   release:
     name: Create GitHub Release
     needs: build
     runs-on: ubuntu-latest
+
     steps:
-      - name: Download artifacts
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          path: dist
+          path: ./dist
 
-      - name: Create Release
+      - name: List downloaded files
+        run: ls -R ./dist
+
+      - name: Publish to GitHub Releases
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist/**/*
+          files: ./dist/**/*
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
