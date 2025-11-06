@@ -2,9 +2,12 @@ const { app, BrowserWindow, Tray, Menu, ipcMain, clipboard, nativeImage, globalS
 const path = require('path');
 const fs = require('fs');
 
+
+const dbPath= path.join(app.getPath('userData'), 'db.json');
+
 let mainWindow;
 let tray;
-const dbPath = path.join(__dirname, 'db.json');
+
 
 const gotTheLock = app.requestSingleInstanceLock();
 
