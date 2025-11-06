@@ -41,14 +41,28 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: npx electron-builder --linux --publish never
 
-      # --- CREATE ZIP FILE FOR MACOS .app ---
-      - name: Create macOS ZIP package
+      # --- CREATE ZIP (macOS only) ---
+      - name: Create ZIP with .app and extras
         if: matrix.os == 'macos-latest'
+        shell: bash
         run: |
+          set -e  # exit immediately on error
           mkdir -p dist/zip
-          APP_PATH=$(find dist -name "*.app" -maxdepth 1)
-          echo "Zipping $APP_PATH..."
-          zip -r dist/zip/CopyCat-macOS.zip "$APP_PATH" LICENSE README.md package.json || echo "Zip failed"
+
+          APP_PATH=$(find dist -type d -name "*.app" | head -n 1)
+
+          echo "Found app at: $APP_PATH"
+
+          if [[ -d "$APP_PATH" ]]; then
+            echo "✅ App bundle found, creating zip..."
+            zip -r dist/zip/CopyCat-macOS.zip "$APP_PATH" LICENSE README.md
+          else
+            echo "❌ No .app found under dist/"
+            echo "Contents of dist directory:"
+            ls -R dist
+            exit 1
+          fi
+
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
