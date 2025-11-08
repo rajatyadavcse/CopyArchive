@@ -18,12 +18,15 @@
       "output": "dist"
     },
     "files": [
-      "main.js",
-      "preload.js",
-      "renderer.js",
-      "assets/**/*",
-      "package.json"
-    ],
+      "**/*",
+      "!dist/",
+      "!build/",
+      "!node_modules/.cache",
+      "!debian.json",
+      "!redhat.json",
+      "!build.js"
+    ]
+    ,
     "mac": {
       "category": "public.app-category.utilities",
       "target": ["dmg"],
