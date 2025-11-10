@@ -91,6 +91,9 @@ function createWindow() {
     },
   });
 
+  mainWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+  mainWindow.setAlwaysOnTop(true, 'screen-saver'); // keeps it floating properly
+
   mainWindow.loadFile('index.html');
   if (process.platform === 'darwin') app.dock.hide();
 }
