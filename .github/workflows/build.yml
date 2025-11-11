@@ -1,4 +1,4 @@
-name: Build and Release CopyCat Electron App
+name: Build and Release CopyArchive Electron App
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
 
           if [[ -d "$APP_PATH" ]]; then
             echo "✅ App bundle found, creating zip..."
-            zip -r dist/zip/CopyCat-macOS.zip "$APP_PATH" LICENSE README.md
+            zip -r dist/zip/CopyArchive-macOS.zip "$APP_PATH" LICENSE README.md
           else
             echo "❌ No .app found under dist/"
             echo "Contents of dist directory:"

@@ -1,7 +1,7 @@
 {
-  "name": "copycat",
+  "name": "copyarchive",
   "version": "1.0.0",
-  "description": "CopyCat - A modern clipboard manager built with Electron.",
+  "description": "CopyArchive - A modern clipboard manager built with Electron.",
   "main": "main.js",
   "author": {
     "name": "Rajat Yadav",
@@ -12,8 +12,8 @@
     "build": "electron-builder --publish never"
   },
   "build": {
-    "appId": "com.copycat.app",
-    "productName": "CopyCat",
+    "appId": "com.copyarchive.app",
+    "productName": "CopyArchive",
     "directories": {
       "output": "dist"
     },

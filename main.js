@@ -47,7 +47,7 @@ function createWindow() {
   const iconPath = path.join(__dirname, 'assets', 'icon.png'); // macOS-friendly tray icon
 
   tray = new Tray(iconPath);
-  tray.setToolTip('CopyCat');
+  tray.setToolTip('CopyArchive');
   
   // 🧩 Add a right-click context menu
   const contextMenu = Menu.buildFromTemplate([

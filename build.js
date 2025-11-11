@@ -3,7 +3,7 @@ const os = require("os");
 const path = require("path");
 const fs = require("fs");
 
-const appName = "CopyCat";
+const appName = "CopyArchive";
 const arch = os.arch() === "arm64" ? "arm64" : "x64";
 const buildDir = path.join(__dirname, "build");
 
@@ -30,7 +30,7 @@ function buildMac() {
 
   console.log("📦 Creating DMG installer...");
   run(
-    `npx electron-installer-dmg "${appPath}" "CopyCat" --out="${buildDir}" --overwrite --icon=${iconPath}`
+    `npx electron-installer-dmg "${appPath}" "CopyArchive" --out="${buildDir}" --overwrite --icon=${iconPath}`
   );
 
   console.log(`✅ macOS build complete: ${buildDir}/${appName}.dmg`);
